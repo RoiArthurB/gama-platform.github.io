@@ -49,7 +49,7 @@ jobs:
       # PRE-COMPILE
       #
       - name: Get latest wiki
-        run: git clone --depth 1 https://github.com/gama-platform/gama.wiki.git
+        run: git clone --depth 1 https://github.com/gama-platform/gama.wiki.git -b new-version-cleanup
 
       - name: Reorganise folders to be more Docusaurus-friendly
         shell: bash
