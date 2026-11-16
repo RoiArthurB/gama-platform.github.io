@@ -2,6 +2,8 @@ const { themes: prismThemes } = require("prism-react-renderer");
 
 const LATEST_VERSION = "2025-06";
 const DOWNLOAD_VERSION = "2025.06.4"
+// Former doc versions (and the alpha "next"), kept only to redirect old URLs.
+const REMOVED_DOC_VERSIONS = ["next", "2025-06", "1.9.3", "1.9.2", "1.9.1", "1.8.2-RC2", "1.8.1"];
 
 // @gama-platform/prism-gaml only defines colors for GAML-specific and a
 // handful of generic token types (string, keyword, comment, ...), so any
@@ -81,24 +83,6 @@ module.exports = {
           editUrl: ({ docPath }) =>
             `https://github.com/gama-platform/gama/wiki/${docPath.slice(0, -3)}/_edit`,
           editCurrentVersion: true,
-
-          // Version dropdown options
-          lastVersion: LATEST_VERSION,
-          /*versions: {
-            "1.81: {
-              label: '1.8.1',
-              path: '',
-            },
-            "1.82: {
-              label: '1.8.2',
-              path: 'next',
-            },
-          },*/
-          versions: {
-            current: {
-              label: "🚧 Alpha 🚧",
-            },
-          },
         },
         theme: {
           customCss: "./src/css/customTheme.css",
@@ -179,13 +163,6 @@ module.exports = {
         },
 
         // Right Side
-        /* Waiting for https://github.com/gama-platform/gama-platform.github.io/issues/160
-        {
-          type: 'docsVersionDropdown',
-          position: 'right',
-          //dropdownItemsAfter: [{to: '/versions', label: 'All versions'}],
-          dropdownActiveClassDisabled: false,
-        },*/
         {
           href: "https://github.com/gama-platform/gama",
           html: '<i class="fab fa-github" style="font-size: 24px;"></i>',
@@ -262,11 +239,17 @@ module.exports = {
     [
       "@docusaurus/plugin-client-redirects",
       {
+        // Docs are no longer versioned: send links to the former alpha
+        // (/wiki/next/...) and to old versions (/wiki/<version>/...) to the
+        // single current documentation.
+        createRedirects(existingPath) {
+          if (!existingPath.startsWith("/wiki/")) return undefined;
+          const page = existingPath.slice("/wiki".length);
+          return REMOVED_DOC_VERSIONS.map((v) => `/wiki/${v}${page}`);
+        },
         redirects: [
           // Default wiki page
-          { from: "/wiki/next", to: "/wiki/next/Home" },
           { from: "/wiki", to: "/wiki/Home" },
-          { from: "/wiki/1.8.1", to: "/wiki/1.8.1/Home" },
           // Debug
           // {
           //   from: "/wiki/next/Operators",
