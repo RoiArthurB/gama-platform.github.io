@@ -25,7 +25,7 @@ module.exports = {
   title: "GAMA Platform",
   tagline: "GAMA",
   url: "https://gama-platform.org",
-  baseUrl: "/",
+  baseUrl: "/gama-platform.github.io/",
   favicon: "img/gama-logo.png",
   titleDelimiter: "|",
 
