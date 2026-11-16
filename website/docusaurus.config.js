@@ -38,7 +38,8 @@ module.exports = {
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: "warn"
-    }
+    },
+    mermaid: true,
   },
 
   deploymentBranch: "master",
@@ -230,7 +231,10 @@ module.exports = {
     },
   },
   //themes: ['docusaurus-theme-github-codeblock'],
-  themes: ["@saucelabs/theme-github-codeblock"],
+  themes: [
+    "@saucelabs/theme-github-codeblock",
+    '@docusaurus/theme-mermaid'
+  ],
   /*
    *  PLUGINS
    */
